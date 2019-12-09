@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.css">
     <script src="https://cdn.jsdelivr.net/npm/buijs/lib/zepto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style></style>
 </head>
 <body>
@@ -79,7 +81,7 @@
     }
 
 </style>
-<div class="bui-page login-page">
+<div class="bui-page login-page" id="loginVue">
     <main>
         <div class="logo bui-box-center">
             <img src="images/applogo.png" alt=""> <h1>BUI</h1>
@@ -90,7 +92,8 @@
                     <label class="bui-label" for="user"><i class="icon-face"></i></label>
                     <div class="span1">
                         <div class="bui-input user-input">
-                            <input id="user" type="text" placeholder="用户名">
+                            <input id="user" type="text" placeholder="用户名" v-model="username">
+                            {{username}}
                         </div>
                     </div>
                 </li>
@@ -98,12 +101,13 @@
                     <label class="bui-label" for="password"><i class="icon-lock"></i></label>
                     <div class="span1">
                         <div class="bui-input password-input">
-                            <input id="password" type="password" placeholder="密码">
+                            <input id="password" type="password" placeholder="密码" v-model="password">
+                            {{password}}
                         </div>
                     </div>
                 </li>
             </ul>
-            <div class="bui-btn round primary" href="pages/main/main.html">登录</div>
+            <div class="bui-btn round primary" href="pages/main/main.html" @click="login">登录</div>
             <div class="bui-btn-text" href="pages/register/register.html">注册</div>
             <div class="bui-btn-text">忘记密码</div>
         </div>
@@ -150,6 +154,27 @@ bui.ready(function(){
                 this.toggleType();
                 //
                 $(e.target).toggleClass("active")
+            }
+        })
+
+        var vm = new Vue({
+            el: '#loginVue',
+            data: {
+                username: '',
+                password: ''
+            },
+            methods:{
+                login(){
+                    axios({
+                        url: 'http://localhost:8888',
+                        method: 'post',
+                        data: {
+                            username: this.username,
+                            password: this.password
+                        }
+
+                    })
+                }
             }
         })
 
