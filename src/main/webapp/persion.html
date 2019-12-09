@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BUI示例</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.css">
+    <script src="https://cdn.jsdelivr.net/npm/buijs/lib/zepto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.js"></script>
+    <style></style>
+</head>
+<body>
+<style type="text/css">
+    .personal-header {
+        background-color: #39a4ff;
+        /*background-image: linear-gradient(to bottom, #7cb8e9, #89bfe3, #72a8d7, #89b5d8, #92bbda);*/
+        padding-top: .3rem;
+        padding-bottom: .3rem;
+    }
+
+    .personal-header .personal-img {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        background:#fff;
+        /* border: 2px solid #fff; */
+        overflow: hidden;
+        margin: 0 auto .2rem auto;
+        text-align: center;
+    }
+
+    .personal-header .personal-img img {
+        width: 100%;
+    }
+
+    .personal-header p {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 0.1rem;
+    }
+
+    .personal-header .name {
+        font-size: 0.26rem;
+    }
+
+    .personal-header .grade {
+        font-size: 0.2rem;
+    }
+
+    .nav-list {
+        border-top: none;
+        margin-top: 0.2rem;
+        padding: 0 0.2rem;
+        background-color: #ffffff;
+    }
+
+    .nav-list .bui-btn {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .nav-list li:first-child {
+        border-top: none;
+    }
+
+    .nav-list .icon i {
+        font-size: 0.4rem;
+    }
+
+    .nav-list .icon {
+        height: 0.42rem;
+    }
+
+    .nav-list .bui-btn {
+        border: none;
+        border-top: 1px solid #efefef;
+    }
+
+    .icon-yellow {
+        color: #ffad03;
+    }
+
+    .icon-thinblue {
+        color: #56ced5;
+    }
+
+    .icon-green {
+        color: #6ed046;
+    }
+
+    .icon-red {
+        color: #fd8886;
+    }
+</style>
+
+<div class="bui-page">
+    <header class="bui-bar">
+        <div class="bui-bar-left">
+            <a class="bui-btn btn-back"><i class="icon-back"></i></a>
+        </div>
+        <div class="bui-bar-main">我的</div>
+        <div class="bui-bar-right">
+        </div>
+    </header>
+    <main>
+        <div class="personal-header">
+            <div class="personal-img">
+                <img src="images/applogo.png">
+            </div>
+            <p class="name">王小二</p>
+        </div>
+        <ul class="bui-list nav-list">
+            <li class="bui-btn bui-box ">
+                <div class="icon"><i class="icon-favfill icon-yellow"></i></div>
+                <div class="span1">设置地址</div>
+                <i class="icon-listright"></i>
+            </li>
+            <li class="bui-btn bui-box">
+                <div class="icon"><i class="icon icon-thinblue">&#xe64f;</i></div>
+                <div class="span1">代拿记录</div>
+                <i class="icon-listright"></i>
+            </li>
+            <li class="bui-btn bui-box">
+                <div class="icon"><i class="icon icon-green">&#xe62d;</i></div>
+                <div class="span1">测试记录</div>
+                <i class="icon-listright"></i>
+            </li>
+            <li class="bui-btn bui-box">
+                <div class="icon"><i class="icon icon-red">&#xe666;</i></div>
+                <div class="span1">退出登录</div>
+                <i class="icon-listright"></i>
+            </li>
+        </ul>
+    </main>
+    <footer>
+        <!-- 底部d导航栏 -->
+        <ul class="bui-nav">
+            <li class="bui-btn bui-box-vertical"><i class="icon-home"></i>
+                <div class="span1">首页</div>
+            </li>
+            <li class="bui-btn bui-box-vertical active"><i class="icon">&#xe67a;</i>
+                <div class="span1">我的</div>
+            </li>
+        </ul>
+    </footer>
+</div>
+
+<script>/**
+ * 个人中心模板
+ * 默认模块名: pages/personal/personal
+ * @return {[object]}  [ 返回一个对象 ]
+ */
+bui.ready(function(){
+
+    var pageview = {};
+
+    // 初始化定义
+    pageview.init = function () {
+
+    }
+
+    // 初始化
+    pageview.init();
+
+    // 输出模块
+    return pageview;
+})
+
+</script>
+</body>
+</html>

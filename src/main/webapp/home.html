@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BUI示例</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.css">
+    <script src="https://cdn.jsdelivr.net/npm/buijs/lib/zepto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.js"></script>
+    <style></style>
+</head>
+<body>
+<div class="bui-page">
+    <header class="bui-bar">
+        <div class="bui-bar-left">
+            <a class="bui-btn" onclick="bui.back();"><i class="icon-back"></i></a>
+        </div>
+        <div class="bui-bar-main">焦点图</div>
+        <div class="bui-bar-right">
+        </div>
+    </header>
+    <main>
+        <div id="slide" class="bui-slide bui-slide-skin01"></div>
+        <div class="bui-tips">
+            小提示: 该例子可以在手机中拖动
+        </div>
+        <div id="slide2" class="bui-slide bui-slide-skin01"></div>
+        <ul class="bui-nav shortcut-nav bui-fluid">
+            <li class="bui-btn bui-box-vertical span4"><i class="icon short1">&#xe65c;</i><div class="span1">快递代拿</div></li>
+            <li class="bui-btn bui-box-vertical span4"><i class="icon short2">&#xe65c;</i><div class="span1">快捷入口</div></li>
+            <li class="bui-btn bui-box-vertical span4"><i class="icon short3">&#xe65c;</i><div class="span1">快捷入口</div></li>
+            <li class="bui-btn bui-box-vertical span4"><i class="icon short4">&#xe65c;</i><div class="span1">快捷入口</div></li>
+            <li class="bui-btn bui-box-vertical span4"><i class="icon short5">&#xe65c;</i><div class="span1">快捷入口</div></li>
+            <li class="bui-btn bui-box-vertical span4"><i class="icon short6">&#xe65c;</i><div class="span1">快捷入口</div></li>
+        </ul>
+    </main>
+    <footer>
+        <!-- 底部d导航栏 -->
+        <ul class="bui-nav">
+            <li class="bui-btn bui-box-vertical active"><i class="icon-home"></i>
+                <div class="span1">首页</div>
+            </li>
+            <li class="bui-btn bui-box-vertical"><i class="icon">&#xe67a;</i>
+                <div class="span1">我的</div>
+            </li>
+        </ul>
+    </footer>
+</div>
+<script>bui.ready(function(){
+
+    // 快速初始化 1.5.2 新增 data参数 动态渲染
+
+    var uiSlide = bui.slide({
+        id: "#slide",
+        height: 380,
+        autopage: true,
+        data: [{
+            image: "http://www.easybui.com/demo/images/banner01.png",
+            url: "pages/ui_controls/bui.slide_title.html",
+        }, {
+            image: "http://www.easybui.com/demo/images/banner02.png",
+            url: "pages/ui_controls/bui.slide_title.html",
+        }, {
+            image: "http://www.easybui.com/demo/images/banner03.png",
+            url: "pages/ui_controls/bui.slide_title.html",
+        }],
+        loop: true,
+        autoplay: true
+    })
+
+
+
+})
+</script>
+<style type="text/css">
+
+    /* 快捷入口导航 */
+    .shortcut-nav .bui-btn{
+        padding: 0.1rem 0;
+        border-right: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+    }
+    .shortcut-nav .bui-btn .icon{
+        color: #ffffff;
+        height: 1.2rem;
+        width: 1.2rem;
+        border-radius: 50%;
+        line-height: 1.2rem;
+        margin: 0.3rem auto;
+        font-size: 0.8rem;
+    }
+    .short1{
+        background-color: #6cc96c;
+    }
+    .short2{
+        background-color: #6cc96c;
+    }
+    .short3{
+        background-color: #ffb33e;
+    }
+    .short4{
+        background-color: #00a5e2;
+    }
+    .short5{
+        background-color: #f57070;
+    }
+    .short6{
+        background-color: #6cc96c;
+    }
+
+    .shortcut-nav .bui-box-vertical>[class*=span]{
+        font-size: 0.32rem;
+        padding-bottom: 0.3rem;
+    }
+
+    .round-animate img{
+        max-width: 100%;
+        max-height: 100%;
+        vertical-align: top;
+    }
+
+    @-webkit-keyframes rotate{
+        0%{ -webkit-transform:rotate(0deg);}
+        100%{-webkit-transform:rotate(-360deg);}
+    }
+    @keyframes rotate{
+        0%{ -webkit-transform:rotate(0deg);}
+        100%{-webkit-transform:rotate(-360deg);}
+    }
+    @-webkit-keyframes rotateReverse{
+        0%{ -webkit-transform:rotate(0deg);}
+        100%{-webkit-transform:rotate(360deg);}
+    }
+    @keyframes rotateReverse{
+        0%{ -webkit-transform:rotate(0deg);}
+        100%{-webkit-transform:rotate(360deg);}
+    }
+    @-webkit-keyframes zoom{
+        0%{ -webkit-transform:scale(0.9);}
+        70%{ -webkit-transform:scale(1);}
+        100%{-webkit-transform:scale(0.9);}
+    }
+    @keyframes zoom{
+        0%{ -webkit-transform:scale(0.9);}
+        70%{ -webkit-transform:scale(1);}
+        100%{-webkit-transform:scale(0.9);}
+    }
+    @-webkit-keyframes translateY{
+        0%{ -webkit-transform:translateY(0);}
+        30%{ -webkit-transform:translateY(30px);}
+        80%{-webkit-transform:translateY(-20px);}
+        100%{-webkit-transform:translateY(0);}
+    }
+    @keyframes translateY{
+        0%{ -webkit-transform:translateY(0);}
+        30%{ -webkit-transform:translateY(30px);}
+        80%{-webkit-transform:translateY(-20px);}
+        100%{-webkit-transform:translateY(0);}
+    }
+</style>
+</body>
+</html>
