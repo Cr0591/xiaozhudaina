@@ -12,10 +12,79 @@
     <style></style>
 </head>
 <body>
+<div class="bui-page login-page" id="loginVue">
+    <main>
+        <div class="logo bui-box-center">
+            <img src="images/applogo.png" alt=""> <h1>BUI</h1>
+        </div>
+        <div class="login-form">
+            <ul class="bui-list">
+                <li class="bui-btn bui-box clearactive">
+                    <label class="bui-label" for="user"><i class="icon-face"></i></label>
+                    <div class="span1">
+                        <div class="bui-input user-input">
+                            <input id="user" type="text" placeholder="用户名" v-model="username">
+                            {{username}}
+                        </div>
+                    </div>
+                </li>
+                <li class="bui-btn bui-box clearactive">
+                    <label class="bui-label" for="password"><i class="icon-lock"></i></label>
+                    <div class="span1">
+                        <div class="bui-input password-input">
+                            <input id="password" type="password" placeholder="密码" v-model="password">
+                            {{password}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="bui-btn round primary" href="pages/main/main.html" @click="login">登录</div>
+            <div class="bui-btn-text" href="pages/register/register.html">注册</div>
+            <div class="bui-btn-text">忘记密码</div>
+        </div>
+    </main>
+</div>
+
+<script>/**
+ * 通用登录模板,包含输入交互,提交需要自己绑定验证
+ * 默认模块名: pages/login/login
+ * @return {[object]}  [ 返回一个对象 ]
+ */
+        var vm = new Vue({
+            el: '#loginVue',
+            data: {
+                username: '',
+                password: ''
+            },
+            methods:{
+                login(){
+                    var datauser = {
+                        username: this.username,
+                        password: this.password
+                    }
+                    $.ajax({
+                        url:'/user/login',
+                        type:'POST',
+                        data:datauser,
+                        success:function (data) {
+                            if (data.success){
+                                window.location.href="/home.html";
+                            }else {
+                                alert("账号活密码错误");
+                            }
+
+                        }
+                    })
+                }
+            }
+        })
+</script>
+
+</body>
 <style type="text/css">
 
     .login-page main{
-        background: #fff url(../images/login/login-bg.png) center bottom no-repeat;
+        background: #fff center bottom no-repeat;
         background-size: 100% auto;
 
     }
@@ -64,135 +133,8 @@
         color: #666666;
         font-size: 0.2rem;
     }
-    .copyright{
-        font-size: 0.17rem;
-        color: #999999;
-        width: 100%;
-        text-align: center;
-        background-color: #ffffff;
-        padding-bottom: 0.25rem;
-    }
 
-    .icon-eye:before {
-        content: "\e680"
-    }
-    .icon-eye.active:before {
-        content: "\e67f"
-    }
+
 
 </style>
-<div class="bui-page login-page" id="loginVue">
-    <main>
-        <div class="logo bui-box-center">
-            <img src="images/applogo.png" alt=""> <h1>BUI</h1>
-        </div>
-        <div class="login-form">
-            <ul class="bui-list">
-                <li class="bui-btn bui-box clearactive">
-                    <label class="bui-label" for="user"><i class="icon-face"></i></label>
-                    <div class="span1">
-                        <div class="bui-input user-input">
-                            <input id="user" type="text" placeholder="用户名" v-model="username">
-                            {{username}}
-                        </div>
-                    </div>
-                </li>
-                <li class="bui-btn bui-box clearactive">
-                    <label class="bui-label" for="password"><i class="icon-lock"></i></label>
-                    <div class="span1">
-                        <div class="bui-input password-input">
-                            <input id="password" type="password" placeholder="密码" v-model="password">
-                            {{password}}
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="bui-btn round primary" href="pages/main/main.html" @click="login">登录</div>
-            <div class="bui-btn-text" href="pages/register/register.html">注册</div>
-            <div class="bui-btn-text">忘记密码</div>
-        </div>
-    </main>
-</div>
-
-<script>/**
- * 通用登录模板,包含输入交互,提交需要自己绑定验证
- * 默认模块名: pages/login/login
- * @return {[object]}  [ 返回一个对象 ]
- */
-bui.ready(function(){
-
-    var pageview = {};
-
-    pageview.bind = function () {
-
-        // 手机号,帐号是同个样式名, 获取值的时候,取的是最后一个focus的值
-        var userInput = bui.input({
-            id: ".user-input",
-            callback: function(e) {
-                // 清空数据
-                this.empty();
-            }
-        })
-
-        // 密码显示或者隐藏
-        var password = bui.input({
-            id: ".password-input",
-            iconClass: ".icon-eye",
-            onBlur: function(e) {
-                if (e.target.value == '') { return false; }
-                // 注册的时候校验只能4-18位密码
-                var rule = /^[a-zA-Z0-9_-]{4,18}$/;
-                if (!rule.test(e.target.value)) {
-                    bui.hint("密码只能由4-18位字母或者数字上下横杠组成");
-                    return false;
-                }
-
-                return true;
-            },
-            callback: function(e) {
-                //切换类型
-                this.toggleType();
-                //
-                $(e.target).toggleClass("active")
-            }
-        })
-
-        var vm = new Vue({
-            el: '#loginVue',
-            data: {
-                username: '',
-                password: ''
-            },
-            methods:{
-                login(){
-                    axios({
-                        url: 'http://localhost:8888',
-                        method: 'post',
-                        data: {
-                            username: this.username,
-                            password: this.password
-                        }
-
-                    })
-                }
-            }
-        })
-
-    }
-
-    pageview.init = function () {
-
-        // 绑定事件
-        this.bind();
-    }
-
-
-    // 初始化
-    pageview.init();
-
-    // 输出模块
-    return pageview;
-})
-</script>
-</body>
 </html>
