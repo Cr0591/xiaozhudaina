@@ -11,7 +11,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
     @Override
-    public boolean isExistOrder(Integer orderNo) {
+    public boolean isExistOrder(String orderNo) {
         Order order = orderDao.findOrderByOrderNo(orderNo);
         if (order != null){
             return true;

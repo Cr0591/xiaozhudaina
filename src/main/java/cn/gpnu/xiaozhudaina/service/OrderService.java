@@ -2,5 +2,5 @@ package cn.gpnu.xiaozhudaina.service;
 
 
 public interface OrderService {
-    boolean isExistOrder(Integer orderNo);
+    boolean isExistOrder(String orderNo);
 }
