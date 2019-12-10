@@ -5,8 +5,10 @@
     <title>BUI示例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.css">
+
     <script src="https://cdn.jsdelivr.net/npm/buijs/lib/zepto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <style></style>
 </head>
 <body>
@@ -21,14 +23,15 @@
     </header>
     <main>
         <div id="slide" class="bui-slide bui-slide-skin01"></div>
-        <div class="bui-tips">
-            小提示: 该例子可以在手机中拖动
-        </div>
-        <div id="slide2" class="bui-slide bui-slide-skin01"></div>
+        <!--滚动公告-->
+        <div id="slideNote" class="bui-slide bui-slide-notice"></div>
+
         <ul class="bui-nav shortcut-nav bui-fluid">
-            <li class="bui-btn bui-box-vertical span4"><i class="icon short1">&#xe65c;</i><div class="span1">快递代拿</div></li>
-            <li class="bui-btn bui-box-vertical span4"><i class="icon short2">&#xe65c;</i><div class="span1">外卖红包</div></li>
-            <li class="bui-btn bui-box-vertical span4"><i class="icon short3">&#xe65c;</i><div class="span1">杂货店</div></li>
+            <li class="bui-btn bui-box-vertical span4"id="btnOpenPrompt"><i class="icon short1">&#xe65c;</i><div class="span1">快递代拿</div></li>
+
+            <li class="bui-btn bui-box-vertical span4" onclick="window.location.href='https://url.cn/5cHlnN9'"><i class="icon short2">&#xe65c;</i><div class="span1">外卖红包</div></li>
+
+            <li class="bui-btn bui-box-vertical span4"><i class="icon short3">&#xe65c;</i><div class="span1">添加微信</div></li>
         </ul>
         <ul class="bui-list bui-list-thumbnail">
             <li class="bui-btn bui-box">
@@ -39,7 +42,7 @@
             </li>
             <li class="bui-btn bui-box">
                 <div class="bui-thumbnail bui-sub" data-sub="新品"><img src="http://www.easybui.com/demo/images/list-img1.png" alt=""></div>
-                <div class="span1">
+                <div class="span1" onclick="window.location.href='/articleDaiNa.html'">
                     <h3 class="item-title">外卖红包说明</h3>
                 </div>
             </li>
@@ -62,10 +65,10 @@
     </footer>
 </div>
 <script>
+
+
     bui.ready(function(){
-
     // 快速初始化 1.5.2 新增 data参数 动态渲染
-
     var uiSlide = bui.slide({
         id: "#slide",
         height: 380,
@@ -83,9 +86,73 @@
         loop: true,
         autoplay: true
     })
+        // 通知, 自定义模板
+        var uiSlide = bui.slide({
+            id: "#slideNote",
+            height: 100,
+            autoplay: true,
+            loop: true,
+            swipe: false,
+            data: [{
+                title: "2017年11月1日 河南分省党支部第18期党课",
+                url: "pages/ui/article.html"
+            }, {
+                title: "2017年11月1日 河南分省党支部第19期党课",
+                url: "pages/ui/article.html"
+            }, {
+                title: "2017年11月1日 河南分省党支部第20期党课",
+                url: "pages/ui/article.html"
+            }],
+            template: function(data) {
+                // 自定义模板时,需要自己渲染完整结构
+                var html = "";
+                html += `<div class="bui-slide-main"><ul>`
+                data.forEach(function(item, i) {
+                    html += `<li href="${item.url}">
+                <div class="notice-item">
+                    <div class="span1">${item.title||""}</div>
+                </div>
+            </li>`
+                })
+                html += `</ul></div>`
+
+                return html;
+            },
+            direction: "y",
+        })
 
 
+    $("#btnOpenPrompt").on("click",function (argument) {
+        var uiPrompt = bui.prompt("请输入你的淘宝订单号",function(e){
+            var text = $(e.target).text();
+            if( text == "取消"){
+                this.close();
+            }else{
+                if( this.value() ){
+                    // 获取输入的值
+                    bui.hint("您好,"+this.value());
+                    var data = this.value();
+                    alert(data)
+                    $.ajax({
+                        url:'/user/login',
+                        type:'POST',
+                        data:datauser,
+                        success:function (data) {
+                            if (data.success){
+                                window.location.href="/home.html";
+                            }else {
+                                alert("账号活密码错误");
+                            }
 
+                        }
+                    })
+                    this.close();
+                }else{
+                    bui.hint("订单号不能为空");
+                }
+            }
+        })
+    })
 })
 </script>
 <style type="text/css">
