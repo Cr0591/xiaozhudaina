@@ -8,6 +8,16 @@ public class Order {
     public Integer orderNo;
     //收货人的电话
     public String consigneePhone;
+    //订单创建或提交时间
+    public Date createTime;
+    //订单完成时间
+    public Date completeTime;
+    //订单状况 0为提交，1为完成
+    public Integer orderStatus;
+    //返利金额
+    public Integer profit;
+    //绑定这是谁的订单
+    public Integer userId;
 
     public Integer getOrderNo() {
         return orderNo;
@@ -65,15 +75,6 @@ public class Order {
         this.userId = userId;
     }
 
-    //订单创建或提交时间
-    public Date createTime;
-    //订单完成时间
-    public Date completeTime;
-    //订单状况 0为提交，1为完成
-    public Integer orderStatus;
-    //返利金额
-    public Integer profit;
-    //绑定这是谁的订单
-    public Integer userId;
+
 
 }
