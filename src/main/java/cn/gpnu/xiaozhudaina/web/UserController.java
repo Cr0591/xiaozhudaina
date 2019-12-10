@@ -43,4 +43,21 @@ public class UserController {
         }
         return modelMap;
     }
+
+    @RequestMapping(value = "getuserinfo",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getUserInfo(HttpServletRequest request){
+        Map<String,Object> modelMap = new HashMap<String,Object>();
+        Object currentUser = request.getSession().getAttribute("currentUser");
+        try{
+            Integer userId = ((User)currentUser).getUserId();
+            User user = userService.getUserById(userId);
+            modelMap.put("success",true);
+            modelMap.put("user",user);
+        }catch (Exception e){
+            modelMap.put("success",false);
+            modelMap.put("errMsg",e.getMessage());
+        }
+        return modelMap;
+    }
 }
