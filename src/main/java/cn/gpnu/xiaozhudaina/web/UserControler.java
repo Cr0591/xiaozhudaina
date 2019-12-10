@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/user")
 public class UserControler {
 
     @Autowired
@@ -22,10 +24,10 @@ public class UserControler {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
-    private Map<String,Object> login(HttpServletRequest request){
+    private Map<String,Object> login(@RequestParam("password") String password, @RequestParam("username")String username, HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object>();
-        String username = HttpServletRequestUtil.getString(request, "username");
-        String password = HttpServletRequestUtil.getString(request, "password");
+        //String username = HttpServletRequestUtil.getString(request, "username");
+        //String password = HttpServletRequestUtil.getString(request, "password");
         HttpSession session = request.getSession();
         //非空判断
         if (username != null && password != null && !("".equals(username)) && !("".equals(password))){
