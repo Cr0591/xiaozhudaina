@@ -11,7 +11,6 @@
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:spring/spring-*.xml</param-value>
     </init-param>
-
   </servlet>
   <servlet-mapping>
     <servlet-name>spring-dispatcher</servlet-name>

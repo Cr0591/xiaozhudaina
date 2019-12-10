@@ -27,11 +27,23 @@
         <div id="slide2" class="bui-slide bui-slide-skin01"></div>
         <ul class="bui-nav shortcut-nav bui-fluid">
             <li class="bui-btn bui-box-vertical span4"><i class="icon short1">&#xe65c;</i><div class="span1">快递代拿</div></li>
-            <li class="bui-btn bui-box-vertical span4"><i class="icon short2">&#xe65c;</i><div class="span1">快捷入口</div></li>
-            <li class="bui-btn bui-box-vertical span4"><i class="icon short3">&#xe65c;</i><div class="span1">快捷入口</div></li>
-            <li class="bui-btn bui-box-vertical span4"><i class="icon short4">&#xe65c;</i><div class="span1">快捷入口</div></li>
-            <li class="bui-btn bui-box-vertical span4"><i class="icon short5">&#xe65c;</i><div class="span1">快捷入口</div></li>
-            <li class="bui-btn bui-box-vertical span4"><i class="icon short6">&#xe65c;</i><div class="span1">快捷入口</div></li>
+            <li class="bui-btn bui-box-vertical span4"><i class="icon short2">&#xe65c;</i><div class="span1">外卖红包</div></li>
+            <li class="bui-btn bui-box-vertical span4"><i class="icon short3">&#xe65c;</i><div class="span1">杂货店</div></li>
+        </ul>
+        <ul class="bui-list bui-list-thumbnail">
+            <li class="bui-btn bui-box">
+                <div class="bui-thumbnail bui-sub" data-sub="新品"><img src="http://www.easybui.com/demo/images/list-img1.png" alt=""></div>
+                <div class="span1">
+                    <h3 class="item-title">快递代拿说明</h3>
+                </div>
+            </li>
+            <li class="bui-btn bui-box">
+                <div class="bui-thumbnail bui-sub" data-sub="新品"><img src="http://www.easybui.com/demo/images/list-img1.png" alt=""></div>
+                <div class="span1">
+                    <h3 class="item-title">外卖红包说明</h3>
+                </div>
+            </li>
+
         </ul>
     </main>
     <footer>
@@ -40,13 +52,17 @@
             <li class="bui-btn bui-box-vertical active"><i class="icon-home"></i>
                 <div class="span1">首页</div>
             </li>
+            <a href="persion.html">
             <li class="bui-btn bui-box-vertical"><i class="icon">&#xe67a;</i>
                 <div class="span1">我的</div>
+            </a>
             </li>
+
         </ul>
     </footer>
 </div>
-<script>bui.ready(function(){
+<script>
+    bui.ready(function(){
 
     // 快速初始化 1.5.2 新增 data参数 动态渲染
 
@@ -97,15 +113,6 @@
     }
     .short3{
         background-color: #ffb33e;
-    }
-    .short4{
-        background-color: #00a5e2;
-    }
-    .short5{
-        background-color: #f57070;
-    }
-    .short6{
-        background-color: #6cc96c;
     }
 
     .shortcut-nav .bui-box-vertical>[class*=span]{

@@ -5,7 +5,8 @@
 <input type="text" id="username">
 <input type="text" id="password">
 <button id="submit">提交</button>
-<script type="text/javascript" src="./resources/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
 <script type="text/javascript">
     $(function () {
         $('#submit').click(function () {
@@ -15,7 +16,7 @@
             datauser.username = $('#username').val();
             datauser.password = $('#password').val();
             $.ajax({
-                url:'/xiaozhudaina_war_exploded/user/login',
+                url:'/user/login',
                 type:'POST',
                 data:datauser,
                 //dataType: 'json',

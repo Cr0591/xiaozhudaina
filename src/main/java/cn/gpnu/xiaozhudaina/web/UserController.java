@@ -2,7 +2,6 @@ package cn.gpnu.xiaozhudaina.web;
 
 import cn.gpnu.xiaozhudaina.entity.User;
 import cn.gpnu.xiaozhudaina.service.UserService;
-import cn.gpnu.xiaozhudaina.util.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +25,6 @@ public class UserController {
     @ResponseBody
     private Map<String,Object> login(@RequestParam("password") String password, @RequestParam("username")String username, HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object>();
-        //String username = HttpServletRequestUtil.getString(request, "username");
-        //String password = HttpServletRequestUtil.getString(request, "password");
         HttpSession session = request.getSession();
         //非空判断
         if (username != null && password != null && !("".equals(username)) && !("".equals(password))){
