@@ -44,7 +44,7 @@ public class UserController {
         return modelMap;
     }
 
-    @RequestMapping(value = "getuserinfo",method = RequestMethod.GET)
+    @RequestMapping(value = "/getuserinfo",method = RequestMethod.GET)
     @ResponseBody
     private Map<String,Object> getUserInfo(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object>();
