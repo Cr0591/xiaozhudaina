@@ -131,12 +131,11 @@
                 if( this.value() ){
                     // 获取输入的值
                     bui.hint("您好,"+this.value());
-                    var data = this.value();
-                    alert(data)
+                    var dingdanhao = this.value();
                     $.ajax({
-                        url:'/user/login',
-                        type:'POST',
-                        data:datauser,
+                        url:'/order/isexistorder',
+                        type:'GET',
+                        data: 'orderno='+dingdanhao,
                         success:function (data) {
                             if (data.success){
                                 window.location.href="/home.html";

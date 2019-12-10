@@ -18,10 +18,7 @@ public class Order {
     public Integer profit;
     //绑定这是谁的订单
     public Integer userId;
-<<<<<<< HEAD
 
-=======
->>>>>>> 038b87376586258d4c2b53ea65005989205fa8a9
     public Integer getOrderNo() {
         return orderNo;
     }
@@ -78,9 +75,4 @@ public class Order {
         this.userId = userId;
     }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 038b87376586258d4c2b53ea65005989205fa8a9
 }
