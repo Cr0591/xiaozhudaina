@@ -12,11 +12,5 @@ public class OrderDaoTest extends BaseTest {
     @Autowired
     private OrderDao orderDao;
 
-    @Test
-    public void testFindOrderByOrderNo(){
-        int orderNo = 2;
-        Order order = orderDao.findOrderByOrderNo(orderNo);
-//        assertEquals("13192700591",order.consigneePhone);
-        assertEquals(null,order);
-    }
+
 }

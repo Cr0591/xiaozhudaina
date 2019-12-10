@@ -3,5 +3,5 @@ package cn.gpnu.xiaozhudaina.dao;
 import cn.gpnu.xiaozhudaina.entity.Order;
 
 public interface OrderDao {
-    Order findOrderByOrderNo(Integer orderNo);
+    Order findOrderByOrderNo(String orderNo);
 }
