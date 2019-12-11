@@ -69,6 +69,7 @@ public class ImageUtil {
         String fileDest = userImageAddr + randomFileName + fileExtension;
         //加上 电脑存储图片基本路径   用于写入
         File dest = new File(PathUtil.getImgBasePath() + fileDest);
+
         try{
             //TODO 可以打水印
             /*
@@ -76,8 +77,8 @@ public class ImageUtil {
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.jpg")), 0.25f)
                     .outputQuality(0.8f).toFile(dest);
             */
-            Thumbnails.of(file.getInputStream()).toFile(dest);
-        }catch (IOException e){
+            Thumbnails.of(file.getInputStream()).scale(1f).toFile(dest);
+        }catch (Exception e){
             e.printStackTrace();
         }
         return fileDest;

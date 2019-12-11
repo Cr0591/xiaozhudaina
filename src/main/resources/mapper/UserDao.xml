@@ -9,6 +9,17 @@
     <select id="findUserByUsername" resultType="cn.gpnu.xiaozhudaina.entity.User">
         select * from tb_user where username= #{username}
     </select>
+    <update id="updateUser" parameterType="cn.gpnu.xiaozhudaina.entity.User" keyColumn="user_id" useGeneratedKeys="true">
+        update tb_user
+        <set>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
+            <if test="dormAddr != null">dorm_addr = #{dormAddr},</if>
+            <if test="imgAddr != null">img_addr = #{imgAddr}</if>
+        </set>
+        where user_id = #{userId}
+    </update>
 
 
 </mapper>

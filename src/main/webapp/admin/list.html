@@ -58,7 +58,7 @@ bui.ready(function(){
         $.getJSON('/user/getuserinfo',function (data) {
             if (data.success){
                 var html = '';
-                users = $.parseJSON(data);
+                users = $.parseJSON(data.user);
                 console.log(users)
                 $.map(users,function () {
                     html +=`<li class="bui-btn bui-box">

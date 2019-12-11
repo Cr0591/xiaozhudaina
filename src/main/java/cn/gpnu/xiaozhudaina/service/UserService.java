@@ -6,4 +6,6 @@ public interface UserService {
     User login(String username, String phoneNumber);
 
     User getUserById(Integer userId);
+
+    boolean modifyUser(User user);
 }
