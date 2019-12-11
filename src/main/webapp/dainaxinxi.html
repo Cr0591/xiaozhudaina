@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BUI示例</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.css">
+    <script src="https://cdn.jsdelivr.net/npm/buijs/lib/zepto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style></style>
+</head>
+<body>
+<div class="bui-page page-form">
+    <header class="bui-bar">
+        <div class="bui-bar-left"> </div>
+        <div class="bui-bar-main">代拿信息</div>
+        <div class="bui-bar-right"> </div>
+    </header>
+    <main>
+        <div class="bui-tips">
+            小提示: 请先在个人中心上传校园卡图片哟
+        </div>
+        <ul class="bui-list">
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label" for="xingming">姓名:</label>
+                <div class="span1">
+                    <div class="bui-input user-input">
+                        <input id="xingming" type="text" class="bui-input" value="" placeholder="请输入姓名">
+                    </div>
+                </div>
+            </li>
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label" for="shoujihao">手机号:</label>
+                <div class="span1">
+                    <div class="bui-input user-input">
+                        <input id="shoujihao" type="number" class="bui-input" value="" placeholder="请输入手机号">
+                    </div>
+                </div>
+            </li>
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label" for="susedizhi">宿舍地址:</label>
+                <div class="span1">
+                    <div class="bui-input user-input">
+                        <input id="susedizhi" type="text" class="bui-input" value="" placeholder="请输入宿舍地址">
+                    </div>
+                </div>
+            </li>
+            <div class="section-title">快递短信:</div>
+            <div id="comment" class="bui-input">
+                <textarea placeholder="请输入快递短信" id="" cols="30" rows="8"></textarea>
+            </div>
+        </ul>
+        <div class="container-y">
+            <div class="bui-box-space">
+                <div class="span1">
+                    <a href="home.html">
+                        <div class="bui-btn round">返回</div>
+                    </a>
+                </div>
+                <div class="span1">
+                    <div class="bui-btn round primary">提交</div>
+                </div>
+            </div>
+        </div>
+        </main>
+</div>
+<script>bui.ready(function(){
+    var pageview = {};
+
+    pageview.bind = function () {
+
+        // 手机号,帐号是同个样式名, 获取值的时候,取的是最后一个focus的值
+        bui.input({
+            id: ".user-input",
+            callback: function (e) {
+                // 清空数据
+                this.empty();
+            }
+        })
+        // 评论的长度限制
+        var comment = bui.input({
+            id: "#comment",
+            target: "textarea",
+            showIcon: false,
+            maxLength: 100,
+            showLength: true
+        })
+
+    }
+
+    pageview.init = function () {
+        getInfo();
+        // 绑定事件
+        this.bind();
+    }
+
+
+    pageview.init();
+})
+function getInfo() {
+    $.getJSON('/user/getuserinfo',function (data) {
+        if (data.success){
+            var user = data.user;
+            $("#xingming").val(user.username);
+            $("#shoujihao").val(user.phoneNumber);
+            $("#susedizhi").val(user.dormAddr);
+        }
+    })
+}
+</script>
+</body>
+</html>

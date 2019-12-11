@@ -21,7 +21,6 @@ public class OrderController {
     @RequestMapping(value = "/isexistorder",method = RequestMethod.GET)
     @ResponseBody
     private Map<String,Object> isExistOrder(@RequestParam("orderno")String orderNo){
-        System.out.println(orderNo);
         Map<String,Object> modelMap = new HashMap<String,Object> ();
         boolean exist = orderService.isExistOrder(orderNo);
         if (exist){
