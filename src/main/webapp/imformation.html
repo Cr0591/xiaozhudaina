@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.css">
     <script src="https://cdn.jsdelivr.net/npm/buijs/lib/zepto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <style></style>
 </head>
 <body>
@@ -20,7 +21,7 @@
 
         <ul class="bui-list">
             <li class="bui-btn bui-box clearactive">
-                <label class="bui-label" for="xingming">姓名</label>
+                <label class="bui-label" for="xingming">姓名:</label>
                 <div class="span1">
                     <div class="bui-input user-input">
                         <input id="xingming" type="text" class="bui-input" value="" placeholder="请输入姓名">
@@ -36,15 +37,7 @@
                 </div>
             </li>
             <li class="bui-btn bui-box clearactive">
-                <label class="bui-label" for="xiaoyuanka">校园卡号</label>
-                <div class="span1">
-                    <div class="bui-input user-input">
-                        <input id="xiaoyuanka" type="text" class="bui-input" value="" placeholder="请输入校园卡账号">
-                    </div>
-                </div>
-            </li>
-            <li class="bui-btn bui-box clearactive">
-                <label class="bui-label" for="susedizhi">宿舍地址</label>
+                <label class="bui-label" for="susedizhi">宿舍地址:</label>
                 <div class="span1">
                     <div class="bui-input user-input">
                         <input id="susedizhi" type="text" class="bui-input" value="" placeholder="如35栋418">
@@ -87,6 +80,7 @@
         </main>
 </div>
 <script>
+    getInfo();
     bui.ready(function(){
         // 拍照上传
         var $facePhoto = $("#buiPhoto");
@@ -222,8 +216,18 @@
             uiUpload.stop();
         })
 
-
     })
+    function getInfo() {
+        $.getJSON('/user/getuserinfo',function (data) {
+            if (data.success){
+                var user = data.user;
+                alert(user)
+                $("#xingming").val(user.username);
+                $("#shoujihao").val(user.phoneNumber);
+                $("#susedizhi").val(user.dormAddr);
+            }
+        })
+    }
 </script>
 </body>
 </html>

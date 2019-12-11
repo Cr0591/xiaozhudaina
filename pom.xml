@@ -26,15 +26,15 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <!--<version>5.1.32</version>-->
-      <version>8.0.13</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>c3p0</groupId>
-      <artifactId>c3p0</artifactId>
-      <version>0.9.1.2</version>
-    </dependency>
-    <!-- DAO: MyBatis -->
+    <version>8.0.13</version>
+    <scope>runtime</scope>
+  </dependency>
+  <dependency>
+    <groupId>c3p0</groupId>
+    <artifactId>c3p0</artifactId>
+    <version>0.9.1.2</version>
+  </dependency>
+  <!-- DAO: MyBatis -->
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>

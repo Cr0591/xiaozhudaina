@@ -15,9 +15,8 @@
 <div class="bui-page">
     <header class="bui-bar">
         <div class="bui-bar-left">
-            <a class="bui-btn" onclick="bui.back();"><i class="icon-back"></i></a>
         </div>
-        <div class="bui-bar-main">焦点图</div>
+        <div class="bui-bar-main">小猪猪代拿</div>
         <div class="bui-bar-right">
         </div>
     </header>
@@ -31,7 +30,7 @@
 
             <li class="bui-btn bui-box-vertical span4" onclick="window.location.href='https://url.cn/5cHlnN9'"><i class="icon short2">&#xe65c;</i><div class="span1">外卖红包</div></li>
 
-            <li class="bui-btn bui-box-vertical span4"><i class="icon short3">&#xe65c;</i><div class="span1">添加微信</div></li>
+            <li class="bui-btn bui-box-vertical span4" id="tianjiaweixin"><i class="icon short3">&#xe65c;</i><div class="span1">添加微信</div></li>
         </ul>
         <ul class="bui-list bui-list-thumbnail">
             <li class="bui-btn bui-box">
@@ -46,8 +45,25 @@
                     <h3 class="item-title">外卖红包说明</h3>
                 </div>
             </li>
-
         </ul>
+        <!-- 中间自定义弹出框结构	 -->
+        <div id="dialogCenter" class="bui-dialog" style="display: none;">
+            <div class="bui-dialog-head">长按扫一扫添加微信</div>
+            <div class="bui-dialog-main">
+                <img src="resources/images/WeChat.jpg" alt="二维码" style="width: 60%">
+            </div>
+            <div class="bui-dialog-foot">
+                <div class="bui-box">
+                    <div class="span1">
+                        <div class="bui-btn">取消</div>
+                    </div>
+                    <div class="span1">
+                        <div class="bui-btn blue">确定</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bui-dialog-close"><i class="icon-close"></i></div>
+        </div>
     </main>
     <footer>
         <!-- 底部d导航栏 -->
@@ -86,6 +102,21 @@
         loop: true,
         autoplay: true
     })
+
+        // 自定义居中弹出框
+        var uiDialog = bui.dialog({
+            id: "#dialogCenter",
+            height: 300,
+            // mask: false,
+            callback: function(e) {
+                console.log(e.target)
+            }
+        });
+
+        $('#tianjiaweixin').on("click", function() {
+            uiDialog.open();
+        })
+
         // 通知, 自定义模板
         var uiSlide = bui.slide({
             id: "#slideNote",
@@ -130,7 +161,6 @@
             }else{
                 if( this.value() ){
                     // 获取输入的值
-                    bui.hint("您好,"+this.value());
                     var dingdanhao = this.value();
                     $.ajax({
                         url:'/order/isexistorder',
@@ -138,9 +168,9 @@
                         data: 'orderno='+dingdanhao,
                         success:function (data) {
                             if (data.success){
-                                window.location.href="/home.html";
+                                window.location.href="/dainaxinxi.html";
                             }else {
-                                alert("账号活密码错误");
+                                bui.hint("订单号不是返利订单，请先加小猪代拿微信哟");
                             }
 
                         }
