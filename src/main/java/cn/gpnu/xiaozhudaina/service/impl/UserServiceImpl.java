@@ -4,6 +4,7 @@ import cn.gpnu.xiaozhudaina.dao.UserDao;
 import cn.gpnu.xiaozhudaina.entity.User;
 import cn.gpnu.xiaozhudaina.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,5 +25,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer userId) {
         return userDao.findUserById(userId);
+    }
+
+    @Override
+    public boolean modifyUser(User user) {
+        try {
+            int effectNum = userDao.updateUser(user);
+            if (effectNum != 1){
+                return false;
+            }
+        } catch (BadSqlGrammarException e) {
+            return false;
+        }
+        return true;
     }
 }

@@ -6,6 +6,8 @@ import cn.gpnu.xiaozhudaina.entity.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.junit.Assert.assertEquals;
+
 public class UserDaoTest extends BaseTest {
 
     @Autowired
@@ -28,5 +30,14 @@ public class UserDaoTest extends BaseTest {
         System.out.println(user.password);
         System.out.println(user.phoneNumber);
         System.out.println(user.dormAddr);
+    }
+
+    @Test
+    public void testUpdateUser(){
+        User user = new User();
+        user.setUserId(1);
+        user.setDormAddr("七栋");
+        int i = userDao.updateUser(user);
+        assertEquals(i,1);
     }
 }
