@@ -85,26 +85,24 @@ public class UserController {
         Integer userId = currentUser.getUserId();
         if (currentUser != null){//用户已登陆
             CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-            if (multipartResolver.isMultipart(request)){
-                MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-                List<MultipartFile> fileList = multipartRequest.getFiles("file");
-                try {
-                    for (MultipartFile file:fileList){
-                        String dest = ImageUtil.generateThumbnail(file, userId);
-                        currentUser.setImgAddr(dest);
-                        try {
-                            userService.modifyUser(currentUser);
-                        } catch (BadSqlGrammarException e) {
-                            modelMap.put("success",false);
-                            modelMap.put("errMsg",e.getMessage());
-                            e.printStackTrace();
-                        }
+            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+            List<MultipartFile> fileList = multipartRequest.getFiles("file");
+            try {
+                for (MultipartFile file:fileList){
+                    String dest = ImageUtil.generateThumbnail(file, userId);
+                    currentUser.setImgAddr(dest);
+                    try {
+                        userService.modifyUser(currentUser);
+                    } catch (BadSqlGrammarException e) {
+                        modelMap.put("success",false);
+                        modelMap.put("errMsg",e.getMessage());
+                        e.printStackTrace();
                     }
-                }catch (Exception e){
-                    modelMap.put("success",false);
-                    modelMap.put("errMsg","图片上传失败，请重新提交。");
-                    e.printStackTrace();
                 }
+            }catch (Exception e){
+                modelMap.put("success",false);
+                modelMap.put("errMsg","图片上传失败，请重新提交。");
+                e.printStackTrace();
             }
         }else {
             modelMap.put("success",false);
