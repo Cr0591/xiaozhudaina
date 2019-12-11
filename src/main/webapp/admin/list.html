@@ -58,14 +58,14 @@ bui.ready(function(){
         $.getJSON('/user/getuserinfo',function (data) {
             if (data.success){
                 var html = '';
-                var user = data.user;
-                alert(user);
-                $.map(user,function () {
+                users = $.parseJSON(data);
+                console.log(users)
+                $.map(users,function () {
                     html +=`<li class="bui-btn bui-box">
                          <div class="span1">
-                             <h3 class="item-title">${user.username}</h3>
-                             <p class="item-text">${user.phoneNumber}</p>
-                             <p class="item-text">${user.dormAddr}</p>
+                             <h3 class="item-title">${users.username}</h3>
+                             <p class="item-text">${users.phoneNumber}</p>
+                             <p class="item-text">${users.dormAddr}</p>
                          </div>
                      </li>`
                 })
@@ -81,9 +81,8 @@ bui.ready(function(){
             success : function(data) {
                 if (data.success) {
                     var html = '';
-                    var user = data.user;
-                    $.map(function (user, index) {
-                        console.log("wocao")
+                    var users = data.user;
+                    data.map(function (user, index) {
                         html +=`<li class="bui-btn bui-box">
                          <div class="span1">
                              <h3 class="item-title">${user.username}</h3>

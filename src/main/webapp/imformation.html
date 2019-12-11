@@ -18,7 +18,6 @@
         <div class="bui-bar-right"> </div>
     </header>
     <main>
-
         <ul class="bui-list">
             <li class="bui-btn bui-box clearactive">
                 <label class="bui-label" for="xingming">姓名:</label>
@@ -196,11 +195,7 @@
         // 上传图片
         $("#upload").on("click", function(argument) {
             uiUpload.startAll({
-                // url: "http://eid.bingosoft.net:83/share/apis/upload/image",
-                //url: "http://10.201.76.223:8060/comservice/psbNewsReport/uploadPictureFile.do",
                 url: "/order/test",
-                // url: "https://www.swla.com.cn/demo/upload.asp",
-                // url:"http://10.201.78.23:81/dataservice.ashx?CommandName=Atd$ImgUpLoad",
                 onSuccess: function(data) {
                     console.log(data)
                     //显示上传以后的图片
@@ -221,7 +216,6 @@
         $.getJSON('/user/getuserinfo',function (data) {
             if (data.success){
                 var user = data.user;
-                alert(user)
                 $("#xingming").val(user.username);
                 $("#shoujihao").val(user.phoneNumber);
                 $("#susedizhi").val(user.dormAddr);
