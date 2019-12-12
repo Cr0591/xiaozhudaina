@@ -81,7 +81,28 @@
 </div>
 <script>
     getInfo();
+
+
+    /*$(function () {
+        $('#btnUpload').on("click",function (event) {
+            var thumbnail = $('.bui-upload-thumbnail');
+            if (thumbnail.length > 0){
+                bui.alert("只能上传一张图片。");
+                event.stopPropagation();
+            }
+        });
+    });*/
     bui.ready(function(){
+        function change() {
+            var thumbnail = $('.bui-upload-thumbnail');
+            if (thumbnail.length > 0){
+                $('#btnUpload')[0].style.display = 'none';
+            }else{
+                $('#btnUpload')[0].style.display = 'block';
+            }
+        }
+        setInterval(change,1000);
+
         // 拍照上传
         var $facePhoto = $("#buiPhoto");
         var $uploadBtn = $("#btnUpload").parent();
@@ -226,6 +247,12 @@
                 $("#shoujihao").val(user.phoneNumber);
                 $("#susedizhi").val(user.dormAddr);
             }
+        })
+    }
+    function judgeImageAdd(ev) {
+        $('#btnUpload').on("click",function () {
+            var thumbnail = $('.bui-upload-thumbnail');
+            alert(thumbnail);
         })
     }
 </script>
