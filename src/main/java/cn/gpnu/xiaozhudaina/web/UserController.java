@@ -65,15 +65,20 @@ public class UserController {
     private Map<String,Object> getUserInfo(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object>();
         Object currentUser = request.getSession().getAttribute("currentUser");
-        try{
-            Integer userId = ((User)currentUser).getUserId();
-            User user = userService.getUserById(userId);
-            user.setPassword("");
-            modelMap.put("success",true);
-            modelMap.put("user",user);
-        }catch (Exception e){
+        if (currentUser != null){
+            try{
+                Integer userId = ((User)currentUser).getUserId();
+                User user = userService.getUserById(userId);
+                user.setPassword("");
+                modelMap.put("success",true);
+                modelMap.put("user",user);
+            }catch (Exception e){
+                modelMap.put("success",false);
+                modelMap.put("errMsg",e.getMessage());
+            }
+        }else {
             modelMap.put("success",false);
-            modelMap.put("errMsg",e.getMessage());
+            modelMap.put("errMsg","未登录，请先登录。");
         }
         return modelMap;
     }
@@ -100,23 +105,25 @@ public class UserController {
 
         if (currentUser != null){//用户已登陆
             CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-            List<MultipartFile> fileList = multipartRequest.getFiles("file");
-            try {
-                for (MultipartFile file:fileList){
-                    String dest = ImageUtil.generateThumbnail(file, userId);
-                    currentUser.setImgAddr(dest);
-                    try {
-                        userService.modifyUser(currentUser);
-                    } catch (BadSqlGrammarException e) {
-                        modelMap.put("success",false);
-                        modelMap.put("errMsg",e.getMessage());
-                        e.printStackTrace();
+            if (multipartResolver.isMultipart(request)){
+                MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+                List<MultipartFile> fileList = multipartRequest.getFiles("file");
+                try {
+                    for (MultipartFile file:fileList){
+                        String dest = ImageUtil.generateThumbnail(file, userId);
+                        currentUser.setImgAddr(dest);
                     }
+                }catch (Exception e){
+                    modelMap.put("success",false);
+                    modelMap.put("errMsg","图片上传失败，请重新提交。");
+                    e.printStackTrace();
                 }
-            }catch (Exception e){
+            }
+            try {
+                userService.modifyUser(currentUser);
+            } catch (BadSqlGrammarException e) {
                 modelMap.put("success",false);
-                modelMap.put("errMsg","图片上传失败，请重新提交。");
+                modelMap.put("errMsg",e.getMessage());
                 e.printStackTrace();
             }
         }else {
@@ -127,7 +134,7 @@ public class UserController {
         return modelMap;
     }
 
-    @RequestMapping(value = "/register",method = RequestMethod.GET)
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
     @ResponseBody
     private Map<String,Object> register(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object> ();
