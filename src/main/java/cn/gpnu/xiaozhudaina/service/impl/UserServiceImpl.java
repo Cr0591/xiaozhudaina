@@ -35,8 +35,15 @@ public class UserServiceImpl implements UserService {
                 return false;
             }
         } catch (BadSqlGrammarException e) {
+            e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int userRegister(User user) {
+        int effectedNum = userDao.insertUser(user);
+        return effectedNum;
     }
 }

@@ -29,4 +29,11 @@ public interface UserDao {
      */
     int updateUser(User user) throws BadSqlGrammarException;
 
+    /**
+     * 增加新用户
+     * @param user
+     * @return
+     */
+    int insertUser(User user);
+
 }

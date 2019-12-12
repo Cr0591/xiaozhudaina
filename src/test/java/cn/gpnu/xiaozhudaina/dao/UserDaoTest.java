@@ -37,7 +37,17 @@ public class UserDaoTest extends BaseTest {
         User user = new User();
         user.setUserId(1);
         user.setDormAddr("七栋");
-        int i = userDao.updateUser(user);
-        assertEquals(i,1);
+        int effectedNum = userDao.updateUser(user);
+        assertEquals(effectedNum,1);
+    }
+
+    @Test
+    public void testInsertUser(){
+        User user = new User();
+        user.setUsername("lcr");
+        user.setPassword("123");
+        user.setPhoneNumber("12345678910");
+        int effectedNum = userDao.insertUser(user);
+        assertEquals(1,effectedNum);
     }
 }
