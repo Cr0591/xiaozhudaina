@@ -18,6 +18,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,10 +80,24 @@ public class UserController {
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> test(HttpServletRequest request){
+    public Map<String,Object> update(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object> ();
         User currentUser = (User)request.getSession().getAttribute("currentUser");
         Integer userId = currentUser.getUserId();
+        String username = request.getParameter("username");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String dormAddr = request.getParameter("dormAddr");
+
+        if (username != null){
+            currentUser.setUsername(username);
+        }
+        if (phoneNumber != null){
+            currentUser.setPhoneNumber(phoneNumber);
+        }
+        if (dormAddr != null){
+            currentUser.setDormAddr(dormAddr);
+        }
+
         if (currentUser != null){//用户已登陆
             CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -109,6 +124,37 @@ public class UserController {
             modelMap.put("errMsg","请先登录，登录后才能设置信息。");
         }
         modelMap.put("success",true);
+        return modelMap;
+    }
+
+    @RequestMapping(value = "/register",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> register(HttpServletRequest request){
+        Map<String,Object> modelMap = new HashMap<String,Object> ();
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String phoneNumber = request.getParameter("phoneNumber");
+        if (username == null){
+            username = phoneNumber;
+        }
+        if (username != null && password != null && phoneNumber != null) {
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setPhoneNumber(phoneNumber);
+
+            int effectedNum = userService.userRegister(user);
+            if (effectedNum > 0){
+                modelMap.put("success",true);
+                request.getSession().setAttribute("currentUser",user);
+            }else {
+                modelMap.put("success",false);
+                modelMap.put("errMsg","注册失败，请重新操作。");
+            }
+        } else {
+            modelMap.put("success",false);
+            modelMap.put("errMsg","手机号或密码不能为空。");
+        }
         return modelMap;
     }
 }

@@ -21,5 +21,10 @@
         where user_id = #{userId}
     </update>
 
-
+    <insert id="insertUser" parameterType="cn.gpnu.xiaozhudaina.entity.User" keyProperty="userId" keyColumn="user_id">
+        insert into
+        tb_user(username,password,phone_number)
+        values
+        (#{username},#{password},#{phoneNumber})
+    </insert>
 </mapper>
