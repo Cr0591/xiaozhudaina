@@ -6,14 +6,16 @@
     <select id="findOrderByOrderNo" resultType="cn.gpnu.xiaozhudaina.entity.Order">
         select * from tb_order where order_no = #{orderNo}
     </select>
+    <select id="queryOrderList" resultType="cn.gpnu.xiaozhudaina.entity.Order">
+        select * from tb_order where user_id = #{userId}
+        order by create_time desc
+    </select>
 
     <update id="submitOrder" parameterType="cn.gpnu.xiaozhudaina.entity.Order" keyColumn="order_no" useGeneratedKeys="true">
         update tb_order
         <set>
-            <if test="order_no != null">order_no = #{orderNo},</if>
             <if test="consignee_phone != null">consignee_phone = #{consigneePhone},</if>
-            <if test="create_time != null">create_time = #{createTime},</if>
-            <if test="order_status != null">order_status = #{orderStatus},</if>
+            <if test="order_no != null">order_no = #{orderNo},</if>
             <if test="user_id != null">user_id = #{userId}</if>
         </set>
         where user_id = #{userId}

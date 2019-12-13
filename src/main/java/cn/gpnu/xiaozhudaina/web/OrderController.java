@@ -6,14 +6,11 @@ import cn.gpnu.xiaozhudaina.service.OrderService;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -54,4 +51,20 @@ public class OrderController {
     }
 
 
+    @RequestMapping(value = "getorderlist",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getOrderList(HttpServletRequest request){
+        Map<String,Object> modelMap = new HashMap<String,Object> ();
+        User currentUser = (User)(request.getSession().getAttribute("currentUser"));
+        if (currentUser != null){
+            Integer userId = currentUser.getUserId();
+            List<Order> orderList = orderService.queryOrderList(userId);
+            modelMap.put("success",true);
+            modelMap.put("orderList",orderList);
+        }else{
+            modelMap.put("success",false);
+            modelMap.put("errMsg","未登录，请先登录。");
+        }
+        return modelMap;
+    }
 }

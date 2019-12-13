@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -25,5 +26,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int submitOrder(Order order) {
         return orderDao.submitOrder(order);
+    }
+
+    @Override
+    public List<Order> queryOrderList(Integer userId) {
+        return orderDao.queryOrderList(userId);
     }
 }

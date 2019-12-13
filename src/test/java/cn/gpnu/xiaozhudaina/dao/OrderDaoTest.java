@@ -5,6 +5,9 @@ import cn.gpnu.xiaozhudaina.entity.Order;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class OrderDaoTest extends BaseTest {
@@ -12,6 +15,26 @@ public class OrderDaoTest extends BaseTest {
     @Autowired
     private OrderDao orderDao;
 
+    @Test
+    public void testFindOrderByOrderNo(){
+        Order order = orderDao.findOrderByOrderNo("123456789");
+        String phone = order.getConsigneePhone();
+        assertEquals("13192700591",phone);
+    }
 
+    @Test
+    public void testQueryOrderList(){
+        List<Order> orderList = orderDao.queryOrderList(1);
+        assertEquals(1,orderList.size());
+    }
+
+    @Test
+    public void tset(){
+        Order order = new Order();
+        order.setUserId(1);
+        order.setOrderNo("123123");
+        int i = orderDao.submitOrder(order);
+        System.out.println(i);
+    }
 
 }
