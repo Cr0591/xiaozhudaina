@@ -6,6 +6,8 @@ import cn.gpnu.xiaozhudaina.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
@@ -17,5 +19,10 @@ public class OrderServiceImpl implements OrderService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Order> queryOrderList(Integer userId) {
+        return orderDao.queryOrderList(userId);
     }
 }

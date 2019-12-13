@@ -6,4 +6,8 @@
     <select id="findOrderByOrderNo" resultType="cn.gpnu.xiaozhudaina.entity.Order">
         select * from tb_order where order_no = #{orderNo}
     </select>
+    <select id="queryOrderList" resultType="cn.gpnu.xiaozhudaina.entity.Order">
+        select * from tb_order where user_id = #{userId}
+        order by create_time desc
+    </select>
 </mapper>
