@@ -36,7 +36,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = "getorderlist",method = RequestMethod.GET)
+    @RequestMapping(value = "/getorderlist",method = RequestMethod.GET)
     @ResponseBody
     private Map<String,Object> getOrderList(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object> ();
