@@ -44,6 +44,18 @@
                     </div>
                 </div>
             </li>
+            <li class="bui-btn bui-box clearactive">
+                <div>
+                    校园卡图片
+                </div>
+            </li>
+            <li class="bui-btn bui-box clearactive">
+                <div id="slide" class="bui-slide bui-slide-skin01">
+                    <img src="" id="tupian">
+                </div>
+            </li>
+            <!--校园卡-->
+
             <!-- 上传示例 -->
             <div class="section-title">
                 上传:
@@ -52,15 +64,6 @@
                 <div class="span1">
                     <div id="btnUpload" class="bui-btn">
                         <i class="icon-plus large"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 操作示例 -->
-            <div class="container-y">
-                <div class="bui-box-space">
-                    <div class="span1">
-                        <div class="bui-btn" id="upload">上传文件</div>
                     </div>
                 </div>
             </div>
@@ -144,6 +147,7 @@
             }
         })
         function templatePhoto(url) {
+            //
             return `<div class="span1" data-index="${uiUpload.currentIndex()}" data-name="${uiUpload.currentName()}">
                 <div class="bui-upload-thumbnail"><img src="${url}" alt="" /><i class="icon-removefill"></i></div>
             </div>`
@@ -191,11 +195,6 @@
                 }
             })
         })
-        // 停止上传
-        $("#stopUpload").on("click", function(argument) {
-            uiUpload.stop();
-        })
-
     })
     function getInfo() {
         $.getJSON('/user/getuserinfo',function (data) {
@@ -204,13 +203,8 @@
                 $("#xingming").val(user.username);
                 $("#shoujihao").val(user.phoneNumber);
                 $("#susedizhi").val(user.dormAddr);
+                document.getElementById("tupian").src = "/image/"+user.imgAddr;
             }
-        })
-    }
-    function judgeImageAdd(ev) {
-        $('#btnUpload').on("click",function () {
-            var thumbnail = $('.bui-upload-thumbnail');
-            alert(thumbnail);
         })
     }
 
@@ -226,13 +220,12 @@
             data:datauser,
             success:function (data) {
                 if (data.success){
-                    alert("wocao");
+                    alert("提交成功");
                 }else {
-                    alert("账号活密码错误");
+                    alert("提交失败");
                 }
             }
         })
-
     }
 </script>
 </body>

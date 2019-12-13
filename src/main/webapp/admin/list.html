@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.css">
     <script src="https://cdn.jsdelivr.net/npm/buijs/lib/zepto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.js"></script>
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <style></style>
 </head>
 <body>
@@ -17,121 +16,86 @@
         <div class="bui-bar-left">
             <a class="bui-btn" onclick="bui.back();"><i class="icon-back"></i></a>
         </div>
-        <div class="bui-bar-main">搜索加载</div>
+        <div class="bui-bar-main">list+listview</div>
         <div class="bui-bar-right">
         </div>
     </header>
     <main>
-        <!-- 搜索条控件结构 -->
-        <div id="searchbar" class="bui-searchbar bui-box">
-            <div class="span1">
-                <div class="bui-input">
-                    <i class="icon-search"></i>
-                    <input type="search" value="" placeholder="请输入关键字"/>
-                </div>
-            </div>
-            <div class="btn-search">搜索</div>
-        </div>
-        <!-- 列表控件结构 -->
-        <div id="scrollSearch" class="bui-scroll">
+        <div id="scrollListview" class="bui-scroll">
             <div class="bui-scroll-head"></div>
             <div class="bui-scroll-main">
-                <ul class="bui-list">
-
+                <ul id ="scrollList2" class="bui-listview">
                 </ul>
             </div>
             <div class="bui-scroll-foot"></div>
         </div>
-
     </main>
 </div>
 
-<script>/**
- * 搜索列表页模板
- * 默认模块名: pages/searchbar/searchbar
- * @return {[object]}  [ 返回一个对象 ]
- */
-bui.ready(function(){
-    var pageview = {};
+<script>bui.ready(function(){
 
-    function getInfo() {
-        $.getJSON('/user/getuserinfo',function (data) {
-            if (data.success){
-                var html = '';
-                users = $.parseJSON(data.user);
-                console.log(users)
-                $.map(users,function () {
-                    html +=`<li class="bui-btn bui-box">
-                         <div class="span1">
-                             <h3 class="item-title">${users.username}</h3>
-                             <p class="item-text">${users.phoneNumber}</p>
-                             <p class="item-text">${users.dormAddr}</p>
-                         </div>
-                     </li>`
-                })
-                $('.bui-list').html(html);
-            }
-        })
+    var uiList = bui.list({
+        id: "#scrollListview",
+        url: "http://www.easybui.com/demo/json/userlist.json",
+        proxy: 'http://www.easybui.com/',
+        children: ".bui-listview",
+        handle: "li",
+        pageSize: 9,
+        template: function(data) {
+            var html = "";
+            $.each(data, function(index, el) {
+                // status=1 手动拼接侧滑菜单,这样可以避免再次dom操作
+                // 设置高度可以少遍历一次
+                html += `<li status="1" style="height:46px;">
+                            <div class="bui-btn bui-box" href="pages/ui_controls/bui.list_listview.html?id=11">
+                                <div class="span1">${el.name} </div>
+                                <i class="icon-listright"></i>
+                            </div>
+                            <div class="bui-listview-menu swipeleft">
+                                <div class="bui-btn primary">修改</div>
+                                <div class="bui-btn danger">删除</div>
+                            </div>
+                        </li>`;
+            });
 
-    }
-    function getlist() {
-        $.ajax({
-            url : "/user/getuserinfo",
-            type : "get",
-            success : function(data) {
-                if (data.success) {
-                    var html = '';
-                    var users = data.user;
-                    data.map(function (user, index) {
-                        html +=`<li class="bui-btn bui-box">
-                         <div class="span1">
-                             <h3 class="item-title">${user.username}</h3>
-                             <p class="item-text">${user.phoneNumber}</p>
-                             <p class="item-text">${user.dormAddr}</p>
-                         </div>
-                     </li>`
-                    });
-                    $('.bui-list').html(html);
-                }
-            }
-        });
-    }
+            return html;
+        },
+        //如果分页的字段名不一样,通过field重新定义
+        field: {
+            page: "page",
+            size: "pageSize",
+            data: "data"
+        },
+        onRefresh: function(scroll) {
+            //初始化listview
+            // uiListviewInit();
+            console.log(this.option("page"));
 
-    // 模块初始化定义
-    pageview.init = function () {
-        getInfo();
-        // var n = 0;
-        //搜索条的初始化
-        var uiSearchbar = bui.searchbar({
-            id:"#searchbar",
-            onInput: function(e,keyword) {
-                //实时搜索
-                // console.log(++n)
-            },
-            onRemove: function(e,keyword) {
-                //删除关键词需要做什么其它处理
-                // console.log(keyword);
-            },
-            callback: function (e,keyword) {
+        },
+        onLoad: function(scroll) {
+            console.log(this.option("page"));
+            //初始化listview
+        },
+        callback: function(e) {
+            // 找到整行li
+            var $line = $(e.target).closest("li")
+            console.log("点击整行", $line)
+        }
+    });
 
-                if( uiList ){
-
-                    //点击搜索清空数据
-                    uiList.empty();
-                    // 重新初始化数据
-                    uiList.init({
-                        page: 1,
-                        data: {
-                            "keyword":keyword
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    // 执行初始化
-    pageview.init();
+    //加载初始化列表侧滑控件,模板里面已经静态渲染
+    var uiListview = bui.listview({
+        id: "#scrollList2",
+        //data: [{ "text": "修改", "classname":"primary"}],
+        callback: function(e, menu) {
+            // 输出点击的按钮
+            console.log(e.target)
+            //关闭菜单
+            menu.close();
+            // 阻止冒泡
+            e.stopPropagation();
+        }
+    });
 
 })
 

@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Order {
     //订单号
-    public Integer orderNo;
+    public String orderNo;
     //收货人的电话
     public String consigneePhone;
     //订单创建或提交时间
@@ -19,11 +19,11 @@ public class Order {
     //绑定这是谁的订单
     public Integer userId;
 
-    public Integer getOrderNo() {
+    public String getOrderNo() {
         return orderNo;
     }
 
-    public void setOrderNo(Integer orderNo) {
+    public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
     }
 
@@ -74,5 +74,4 @@ public class Order {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
 }
