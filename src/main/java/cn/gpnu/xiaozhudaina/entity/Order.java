@@ -19,6 +19,16 @@ public class Order {
     //绑定这是谁的订单
     public Integer userId;
 
+    public String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public String getOrderNo() {
         return orderNo;
     }

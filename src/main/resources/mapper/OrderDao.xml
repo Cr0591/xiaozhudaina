@@ -11,14 +11,12 @@
         order by create_time desc
     </select>
 
-    <update id="submitOrder" parameterType="cn.gpnu.xiaozhudaina.entity.Order" keyColumn="order_no" useGeneratedKeys="true">
-        update tb_order
-        <set>
-            <if test="consignee_phone != null">consignee_phone = #{consigneePhone},</if>
-            <if test="order_no != null">order_no = #{orderNo},</if>
-            <if test="user_id != null">user_id = #{userId}</if>
-        </set>
-        where user_id = #{userId}
-    </update>
+    <insert id="submitOrder" parameterType="cn.gpnu.xiaozhudaina.entity.Order" keyColumn="order_no" useGeneratedKeys="true">
+        insert into
+        tb_order
+        (order_no,consignee_phone,create_time,order_status,user_id,message)
+        values
+        (#{orderNo},#{consigneePhone},#{createTime},#{orderStatus},#{userId},#{message})
+    </insert>
 
 </mapper>

@@ -31,8 +31,12 @@ public class OrderDaoTest extends BaseTest {
     @Test
     public void tset(){
         Order order = new Order();
+        order.setCreateTime(new Date());
+        order.setConsigneePhone("123123");
         order.setUserId(1);
-        order.setOrderNo("123123");
+        order.setOrderStatus(0);
+        order.setMessage("wocao");
+        order.setOrderNo("5555555555555555");
         int i = orderDao.submitOrder(order);
         System.out.println(i);
     }
