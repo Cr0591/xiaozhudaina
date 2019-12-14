@@ -37,15 +37,20 @@ public class OrderController {
     private Map<String,Object> submitOrder(@RequestBody Order order, HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object> ();
         User currentUser = (User)request.getSession().getAttribute("currentUser");
-        Integer userId = currentUser.getUserId();
-        order.setUserId(userId);
-        int res = orderService.submitOrder(order);
-        if (res == 1){
-            modelMap.put("success",true);
-            modelMap.put("message","success");
+        if (currentUser != null){
+            Integer userId = currentUser.getUserId();
+            order.setUserId(userId);
+            int res = orderService.submitOrder(order);
+            if (res == 1){
+                modelMap.put("success",true);
+                modelMap.put("message","success");
+            }else{
+                modelMap.put("success",false);
+                modelMap.put("message","error");
+            }
         }else{
             modelMap.put("success",false);
-            modelMap.put("message","error");
+            modelMap.put("errMsg","未登录，请先登录。");
         }
         return modelMap;
     }

@@ -25,7 +25,8 @@ public class OrderDaoTest extends BaseTest {
     @Test
     public void testQueryOrderList(){
         List<Order> orderList = orderDao.queryOrderList(1);
-        assertEquals(1,orderList.size());
+        System.out.println(orderList);
+        assertEquals(7,orderList.size());
     }
 
     @Test
