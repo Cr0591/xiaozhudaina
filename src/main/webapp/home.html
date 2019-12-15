@@ -90,14 +90,14 @@
         height: 380,
         autopage: true,
         data: [{
-            image: "http://www.easybui.com/demo/images/banner01.png",
-            url: "pages/ui_controls/bui.slide_title.html",
+            image: "/image/upload/slide/1.jpg",
+            url: "/home.html",
         }, {
-            image: "http://www.easybui.com/demo/images/banner02.png",
-            url: "pages/ui_controls/bui.slide_title.html",
+            image: "/image/upload/slide/4.jpg",
+            url: "/home.html",
         }, {
-            image: "http://www.easybui.com/demo/images/banner03.png",
-            url: "pages/ui_controls/bui.slide_title.html",
+            image: "/image/upload/slide/3.jpg",
+            url: "/home.html",
         }],
         loop: true,
         autoplay: true
@@ -125,14 +125,14 @@
             loop: true,
             swipe: false,
             data: [{
-                title: "2017年11月1日 河南分省党支部第18期党课",
-                url: "pages/ui/article.html"
+                title: "春荣牛逼",
+                url: "/home.html"
             }, {
-                title: "2017年11月1日 河南分省党支部第19期党课",
-                url: "pages/ui/article.html"
+                title: "汉杰牛逼",
+                url: "/home.html"
             }, {
-                title: "2017年11月1日 河南分省党支部第20期党课",
-                url: "pages/ui/article.html"
+                title: "卧槽牛逼",
+                url: "/home.html"
             }],
             template: function(data) {
                 // 自定义模板时,需要自己渲染完整结构
@@ -168,6 +168,7 @@
                         data: 'orderno='+dingdanhao,
                         success:function (data) {
                             if (data.success){
+                                window.sessionStorage.setItem("dingdanhao",dingdanhao);
                                 window.location.href="/dainaxinxi.html";
                             }else {
                                 bui.hint("订单号不是返利订单，请先加小猪代拿微信哟");

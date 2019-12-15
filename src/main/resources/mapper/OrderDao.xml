@@ -10,4 +10,13 @@
         select * from tb_order where user_id = #{userId}
         order by create_time desc
     </select>
+
+    <insert id="submitOrder" parameterType="cn.gpnu.xiaozhudaina.entity.Order" keyColumn="order_no" useGeneratedKeys="true">
+        insert into
+        tb_order
+        (order_no,consignee_phone,create_time,order_status,user_id,message)
+        values
+        (#{orderNo},#{consigneePhone},#{createTime},#{orderStatus},#{userId},#{message})
+    </insert>
+
 </mapper>

@@ -22,4 +22,6 @@ public interface OrderDao {
     List<Order> queryOrderList(Integer userId);
 
 
+
+    int submitOrder(Order order);
 }
