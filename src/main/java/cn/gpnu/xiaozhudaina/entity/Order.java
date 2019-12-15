@@ -18,6 +18,8 @@ public class Order {
     public Integer profit;
     //绑定这是谁的订单
     public Integer userId;
+    //快递信息
+    public String message;
 
     public Integer getOrderNo() {
         return orderNo;
@@ -75,4 +77,11 @@ public class Order {
         this.userId = userId;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
