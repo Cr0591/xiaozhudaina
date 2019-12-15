@@ -4,7 +4,6 @@ import cn.gpnu.xiaozhudaina.entity.Order;
 import cn.gpnu.xiaozhudaina.entity.User;
 import cn.gpnu.xiaozhudaina.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +55,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = "getorderlist",method = RequestMethod.GET)
+    @RequestMapping(value = "/getorderlist",method = RequestMethod.GET)
     @ResponseBody
     private Map<String,Object> getOrderList(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object> ();

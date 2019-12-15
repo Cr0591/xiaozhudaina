@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>BUI示例</title>
+    <title>小猪代拿</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.css">
 
@@ -13,13 +13,6 @@
 </head>
 <body>
 <div class="bui-page">
-    <header class="bui-bar">
-        <div class="bui-bar-left">
-        </div>
-        <div class="bui-bar-main">小猪猪代拿</div>
-        <div class="bui-bar-right">
-        </div>
-    </header>
     <main>
         <div id="slide" class="bui-slide bui-slide-skin01"></div>
         <!--滚动公告-->
@@ -33,15 +26,15 @@
             <li class="bui-btn bui-box-vertical span4" id="tianjiaweixin"><i class="icon short3">&#xe65c;</i><div class="span1">添加微信</div></li>
         </ul>
         <ul class="bui-list bui-list-thumbnail">
-            <li class="bui-btn bui-box">
+            <li class="bui-btn bui-box" onclick="window.location.href='/articleDaiNa.html'">
                 <div class="bui-thumbnail bui-sub" data-sub="新品"><img src="http://www.easybui.com/demo/images/list-img1.png" alt=""></div>
                 <div class="span1">
                     <h3 class="item-title">快递代拿说明</h3>
                 </div>
             </li>
-            <li class="bui-btn bui-box">
+            <li class="bui-btn bui-box"  onclick="window.location.href='/articleDaiNa.html'">
                 <div class="bui-thumbnail bui-sub" data-sub="新品"><img src="http://www.easybui.com/demo/images/list-img1.png" alt=""></div>
-                <div class="span1" onclick="window.location.href='/articleDaiNa.html'">
+                <div class="span1">
                     <h3 class="item-title">外卖红包说明</h3>
                 </div>
             </li>
@@ -76,7 +69,6 @@
                 <div class="span1">我的</div>
             </a>
             </li>
-
         </ul>
     </footer>
 </div>
@@ -90,13 +82,13 @@
         height: 380,
         autopage: true,
         data: [{
-            image: "/image/upload/slide/1.jpg",
+            image: "/image/upload/slide/2.png",
             url: "/home.html",
         }, {
-            image: "/image/upload/slide/4.jpg",
+            image: "/image/upload/slide/2.png",
             url: "/home.html",
         }, {
-            image: "/image/upload/slide/3.jpg",
+            image: "/image/upload/slide/2.png",
             url: "/home.html",
         }],
         loop: true,

@@ -5,6 +5,7 @@
 <input type="text" id="username">
 <input type="text" id="password">
 <button id="submit">提交</button>
+<a href="/weChat/login">微信授权</a>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
 </script>
 <script type="text/javascript">
