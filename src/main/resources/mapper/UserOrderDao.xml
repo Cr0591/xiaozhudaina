@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gpnu.xiaozhudaina.dao.UserOrderDao">
+    <resultMap id="userOrderMap" type="cn.gpnu.xiaozhudaina.dto.UserOrder">
+        <association property="user" column="user_id" javaType="cn.gpnu.xiaozhudaina.entity.User">
+            <id column="user_id" property="userId" />
+            <result column="username" property="username"/>
+            <result column="password" property="password"/>
+            <result column="phone_number" property="phoneNumber"/>
+            <result column="dorm_addr" property="dormAddr"/>
+            <result column="img_addr" property="imgAddr"/>
+        </association>
+        <association property="order" column="order_no" javaType="cn.gpnu.xiaozhudaina.entity.Order">
+            <id column="order_no" property="orderNo"/>
+            <result column="consignee_phone" property="consigneePhone"/>
+            <result column="create_time" property="createTime"/>
+            <result column="complete_time" property="completeTime"/>
+            <result column="order_status" property="orderStatus"/>
+            <result column="profit" property="profit"/>
+            <result column="user_id" property="userId"/>
+            <result column="message" property="message"/>
+        </association>
+    </resultMap>
+
+    <select id="queryAllOrder" resultMap="userOrderMap">
+        select
+        u.user_id,
+        u.username,
+        u.password,
+        u.phone_number,
+        u.dorm_addr,
+        u.img_addr,
+        o.order_no,
+        o.consignee_phone,
+        o.create_time,
+        o.complete_time,
+        o.order_status,
+        o.profit,
+        o.user_id,
+        o.message
+        from tb_user u,tb_order o
+        where u.user_id = o.user_id
+        order by create_time desc
+    </select>
+
+    <select id="countAllList" resultType="java.lang.Integer">
+        select
+        count(*)
+        from tb_user u,tb_order o
+        where u.user_id = o.user_id
+    </select>
+</mapper>

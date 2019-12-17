@@ -36,14 +36,19 @@
 
     var uiList = bui.list({
         id: "#scrollListview",
-        url: "/order/getorderlist",
+        url: "/admin/getalllist",
+        method:'GET',
         children: ".bui-listview",
         handle: "li",
         pageSize: 9,
         template: function(data) {
             var html = "";
-            $.each(data, function(index, el) {
-                var time = el.createTime;
+            var userOrderList = data.userOrderList;
+            var count = data.count;
+            console.log("data  ===============  " + data);
+            for (var i=0;i<count;i++){
+                console.log("count =========== "+ count);
+                var time = el.order.createTime;
                 var date = new Date(time);
                 var str = date.Format("yyyy-MM-dd HH:mm:ss")
                 // status=1 手动拼接侧滑菜单,这样可以避免再次dom操作
@@ -51,10 +56,10 @@
                 html += `<li status="1" style="height:110px;">
                             <div class="bui-btn bui-box" href="/order/getorderlist">
                                 <div class="span1">
-                                    <h3 class="item-title">${el.consigneePhone}</h3>
+                                    <h3 class="item-title">${el.order.consigneePhone}</h3>
                                     <p class="item-text">${str}</p>
-                                    <p class="item-text"><span class="bui-label">订单号</span><span class="bui-value">${el.orderNo}</span</p>
-                                    <p class="item-text"><span class="bui-label">姓名</span><span class="bui-value">张珊珊</span></p>
+                                    <p class="item-text"><span class="bui-label">订单号</span><span class="bui-value">${el.order.orderNo}</span</p>
+                                    <p class="item-text"><span class="bui-label">姓名</span><span class="bui-value">${el.user.username}</span></p>
                                 </div>
                                 <i class="icon-listright"></i>
                             </div>
@@ -63,7 +68,30 @@
                                 <div class="bui-btn danger">删除</div>
                             </div>
                         </li>`;
-            });
+            }
+            console.log("html ================ "+html);
+            /*$.each(data.userOrderList, function(index, el) {
+                var time = el.order.createTime;
+                var date = new Date(time);
+                var str = date.Format("yyyy-MM-dd HH:mm:ss")
+                // status=1 手动拼接侧滑菜单,这样可以避免再次dom操作
+                // 设置高度可以少遍历一次
+                html += `<li status="1" style="height:110px;">
+                            <div class="bui-btn bui-box" href="/order/getorderlist">
+                                <div class="span1">
+                                    <h3 class="item-title">${el.order.consigneePhone}</h3>
+                                    <p class="item-text">${str}</p>
+                                    <p class="item-text"><span class="bui-label">订单号</span><span class="bui-value">${el.order.orderNo}</span</p>
+                                    <p class="item-text"><span class="bui-label">姓名</span><span class="bui-value">${el.user.username}</span></p>
+                                </div>
+                                <i class="icon-listright"></i>
+                            </div>
+                            <div class="bui-listview-menu swipeleft">
+                                <div class="bui-btn primary">修改</div>
+                                <div class="bui-btn danger">删除</div>
+                            </div>
+                        </li>`;
+            });*/
 
             return html;
         },
@@ -121,6 +149,21 @@
 
 })
 
+</script>
+<script type="text/javascript">
+    $(function () {
+        var html = "";
+        var time = el.order.createTime;
+        var date = new Date(time);
+        var str = date.Format("yyyy-MM-dd HH:mm:ss")
+        $.ajax({
+            url: "/admin/getalllist",
+            method:'GET',
+            success:function (data) {
+                
+            }
+        });
+    });
 </script>
 </body>
 </html>
