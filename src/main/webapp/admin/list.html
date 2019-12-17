@@ -153,14 +153,40 @@
 <script type="text/javascript">
     $(function () {
         var html = "";
-        var time = el.order.createTime;
-        var date = new Date(time);
-        var str = date.Format("yyyy-MM-dd HH:mm:ss")
         $.ajax({
             url: "/admin/getalllist",
             method:'GET',
             success:function (data) {
-                
+                var count = data.count;
+                var userOrderList = data.userOrderList;
+                for (var i=0;i<count;i++){
+                    var time = userOrderList[i].order.createTime;
+                    var date = new Date(time);
+                    var str = date.Format("yyyy-MM-dd HH:mm:ss")
+                    console.log("count =========== "+ count);
+                    var time = userOrderList[i].order.createTime;
+                    var date = new Date(time);
+                    var str = date.Format("yyyy-MM-dd HH:mm:ss")
+                    // status=1 手动拼接侧滑菜单,这样可以避免再次dom操作
+                    // 设置高度可以少遍历一次
+                    html += `<li status="1" style="height:110px;">
+                            <div class="bui-btn bui-box" href="/order/getorderlist">
+                                <div class="span1">
+                                    <h3 class="item-title">${userOrderList[i].order.consigneePhone}</h3>
+                                    <p class="item-text">${str}</p>
+                                    <p class="item-text"><span class="bui-label">订单号</span><span class="bui-value">${userOrderList[i].order.orderNo}</span</p>
+                                    <p class="item-text"><span class="bui-label">姓名</span><span class="bui-value">${userOrderList[i].user.username}</span></p>
+                                </div>
+                                <i class="icon-listright"></i>
+                            </div>
+                            <div class="bui-listview-menu swipeleft">
+                                <div class="bui-btn primary">修改</div>
+                                <div class="bui-btn danger">删除</div>
+                            </div>
+                        </li>`;
+                }
+                console.log(html);
+                $('#scrollListview').innerHTML = html;
             }
         });
     });
