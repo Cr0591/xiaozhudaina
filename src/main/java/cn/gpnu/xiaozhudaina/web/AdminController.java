@@ -26,7 +26,7 @@ public class AdminController {
         List<UserOrder> userOrderList = userOrderService.getAllList();
         int count = userOrderService.getAllListCount();
         modelMap.put("success",true);
-        modelMap.put("count",count);
+        modelMap.put("total",count);
         modelMap.put("userOrderList",userOrderList);
         return modelMap;
     }

@@ -16,121 +16,75 @@
         <div class="bui-bar-left">
             <a class="bui-btn" onclick="bui.back();"><i class="icon-back"></i></a>
         </div>
-        <div class="bui-bar-main">代拿订单</div>
+        <div class="bui-bar-main">搜索加载</div>
         <div class="bui-bar-right">
         </div>
     </header>
     <main>
-        <div id="scrollListview" class="bui-scroll">
+        <!-- 列表控件结构 -->
+        <div id="scrollSearch" class="bui-scroll">
             <div class="bui-scroll-head"></div>
             <div class="bui-scroll-main">
-                <ul id ="scrollList2" class="bui-listview">
+                <ul class="bui-list">
+
                 </ul>
             </div>
             <div class="bui-scroll-foot"></div>
         </div>
+
     </main>
 </div>
 
-<script>bui.ready(function(){
-
-    var uiList = bui.list({
-        id: "#scrollListview",
-        url: "/admin/getalllist",
-        method:'GET',
-        children: ".bui-listview",
-        handle: "li",
-        pageSize: 9,
-        template: function(data) {
-            var html = "";
-            var userOrderList = data.userOrderList;
-            alert(userOrderList[0].username);
-            console.log("data  ===============  " + data);
-            for (var i=0;i<count;i++){
-                console.log("count =========== "+ count);
-                var time = el.order.createTime;
-                var date = new Date(time);
-                var str = date.Format("yyyy-MM-dd HH:mm:ss")
-                // status=1 手动拼接侧滑菜单,这样可以避免再次dom操作
-                // 设置高度可以少遍历一次
-                html += `<li status="1" style="height:110px;">
+<script>/**
+ * 搜索列表页模板
+ * 默认模块名: pages/searchbar/searchbar
+ * @return {[object]}  [ 返回一个对象 ]
+ */
+bui.ready(function(){
+    var pageview = {};
+    // 模块初始化定义
+    pageview.init = function () {
+        // 列表加载
+        var uiList = bui.list({
+            id: "#scrollSearch",
+            url: "/admin/getalllist",
+            field: {
+                data:"userOrderList"
+            },
+            page:1,
+            pageSize:50,
+            template: function (data) {
+                var html = "";
+                data.map(function(el, index) {
+                    var time = el.order.createTime;
+                    var date = new Date(time);
+                    var time = date.Format("yyyy-MM-dd HH:mm:ss");
+                    var status = el.order.orderStatus;
+                    if (status == 0){
+                        status = '已提交';
+                    } else{
+                        status = '已完成';
+                    }
+                    html += `<li status="1" style="height:110px;">
                             <div class="bui-btn bui-box" href="/admin/getalllist">
                                 <div class="span1">
-                                    <h3 class="item-title">${el.order.consigneePhone}</h3>
-                                    <p class="item-text">${str}</p>
+                                    <h3 class="item-title"><span class="bui-label">手机号</span>${el.user.phoneNumber}</h3>
+                                    <p class="item-text">${time}</p>
                                     <p class="item-text"><span class="bui-label">订单号</span><span class="bui-value">${el.order.orderNo}</span</p>
-                                    <p class="item-text"><span class="bui-label">姓名</span><span class="bui-value">${el.user.username}</span></p>
+                                    <p class="item-text"><span class="bui-label">代拿情况</span><span class="bui-value">${status}</span></p>
                                 </div>
                                 <i class="icon-listright"></i>
                             </div>
-                            <div class="bui-listview-menu swipeleft">
-                                <div class="bui-btn primary">修改</div>
-                                <div class="bui-btn danger">删除</div>
-                            </div>
                         </li>`;
+                });
+                return html;
             }
-            console.log("html ================ "+html);
-            /*$.each(data.userOrderList, function(index, el) {
-                var time = el.order.createTime;
-                var date = new Date(time);
-                var str = date.Format("yyyy-MM-dd HH:mm:ss")
-                // status=1 手动拼接侧滑菜单,这样可以避免再次dom操作
-                // 设置高度可以少遍历一次
-                html += `<li status="1" style="height:110px;">
-                            <div class="bui-btn bui-box" href="/order/getorderlist">
-                                <div class="span1">
-                                    <h3 class="item-title">${el.order.consigneePhone}</h3>
-                                    <p class="item-text">${str}</p>
-                                    <p class="item-text"><span class="bui-label">订单号</span><span class="bui-value">${el.order.orderNo}</span</p>
-                                    <p class="item-text"><span class="bui-label">姓名</span><span class="bui-value">${el.user.username}</span></p>
-                                </div>
-                                <i class="icon-listright"></i>
-                            </div>
-                            <div class="bui-listview-menu swipeleft">
-                                <div class="bui-btn primary">修改</div>
-                                <div class="bui-btn danger">删除</div>
-                            </div>
-                        </li>`;
-            });*/
+        });
+    }
 
-            return html;
-        },
-        //如果分页的字段名不一样,通过field重新定义
-        field: {
-            page: "page",
-            size: "pageSize",
-            data: "orderList"
-        },
-        onRefresh: function(scroll) {
-            //初始化listview
-            // uiListviewInit();
-            console.log(this.option("page"));
+    // 执行初始化
+    pageview.init();
 
-        },
-        onLoad: function(scroll) {
-            console.log(this.option("page"));
-            //初始化listview
-        },
-        callback: function(e) {
-            // 找到整行li
-            var $line = $(e.target).closest("li")
-            console.log("点击整行", $line)
-        }
-    });
-
-    //加载初始化列表侧滑控件,模板里面已经静态渲染
-    var uiListview = bui.listview({
-        id: "#scrollList2",
-        //data: [{ "text": "修改", "classname":"primary"}],
-        callback: function(e, menu) {
-            // 输出点击的按钮
-            console.log(e.target)
-            //关闭菜单
-            menu.close();
-            // 阻止冒泡
-            e.stopPropagation();
-        }
-    });
     Date.prototype.Format = function (fmt) { //author: meizz
         var o = {
             "M+": this.getMonth() + 1, //月份
@@ -146,50 +100,8 @@
             if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
     }
-
 })
 
-</script>
-<script type="text/javascript">
-    $(function () {
-        var html = "";
-        $.ajax({
-            url: "/admin/getalllist",
-            method:'GET',
-            success:function (data) {
-                var count = data.count;
-                var userOrderList = data.userOrderList;
-                for (var i=0;i<count;i++){
-                    var time = userOrderList[i].order.createTime;
-                    var date = new Date(time);
-                    var str = date.Format("yyyy-MM-dd HH:mm:ss")
-                    console.log("count =========== "+ count);
-                    var time = userOrderList[i].order.createTime;
-                    var date = new Date(time);
-                    var str = date.Format("yyyy-MM-dd HH:mm:ss")
-                    // status=1 手动拼接侧滑菜单,这样可以避免再次dom操作
-                    // 设置高度可以少遍历一次
-                    html += `<li status="1" style="height:110px;">
-                            <div class="bui-btn bui-box" href="/order/getorderlist">
-                                <div class="span1">
-                                    <h3 class="item-title">${userOrderList[i].order.consigneePhone}</h3>
-                                    <p class="item-text">${str}</p>
-                                    <p class="item-text"><span class="bui-label">订单号</span><span class="bui-value">${userOrderList[i].order.orderNo}</span</p>
-                                    <p class="item-text"><span class="bui-label">姓名</span><span class="bui-value">${userOrderList[i].user.username}</span></p>
-                                </div>
-                                <i class="icon-listright"></i>
-                            </div>
-                            <div class="bui-listview-menu swipeleft">
-                                <div class="bui-btn primary">修改</div>
-                                <div class="bui-btn danger">删除</div>
-                            </div>
-                        </li>`;
-                }
-                console.log(html);
-                $('#scrollListview').innerHTML = html;
-            }
-        });
-    });
 </script>
 </body>
 </html>
