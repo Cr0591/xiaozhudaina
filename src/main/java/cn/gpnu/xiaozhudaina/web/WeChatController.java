@@ -18,13 +18,11 @@ public class WeChatController {
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public void login(HttpServletRequest request, HttpServletResponse response){
         String backUrl = "http://hanjie.free.idcfengye.com/weChat/callBack";
-//        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-//                "appid=" + AuthUtil.APPID +
-//                "&redirect_uri=" + URLEncoder.encode(backUrl) +
-//                "&response_type=code" +
-//                "&scope=snsapi_userinfo" +
-//                "&state=STATE#wechat_redirect";
-        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AuthUtil.APPID+"&redirect_uri="+URLEncoder.encode(backUrl)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+
+        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+                "appid="+AuthUtil.APPID
+                +"&redirect_uri="+URLEncoder.encode(backUrl)
+                +"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
         try {
             response.sendRedirect(url);
         } catch (IOException e) {
