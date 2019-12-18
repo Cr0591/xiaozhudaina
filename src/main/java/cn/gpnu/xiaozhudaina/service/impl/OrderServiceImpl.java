@@ -26,8 +26,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int submitOrder(Order order) {
-        order.setCreateTime(new Date());
-        order.setOrderStatus(0);
         try {
             int res = orderDao.submitOrder(order);
             return res;

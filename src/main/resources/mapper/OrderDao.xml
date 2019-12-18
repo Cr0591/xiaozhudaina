@@ -12,11 +12,22 @@
     </select>
 
     <insert id="submitOrder" parameterType="cn.gpnu.xiaozhudaina.entity.Order" keyColumn="order_no" useGeneratedKeys="true">
-        insert into
+        update tb_order
+        <set>
+            <if test="consigneePhone != null">consignee_phone=#{consigneePhone},</if>
+            <if test="createTime != null">create_time=#{createTime},</if>
+            <if test="completeTime != null">complete_time=#{completeTime},</if>
+            <if test="orderStatus != null">order_status=#{orderStatus},</if>
+            <if test="profit != null">profit=#{profit},</if>
+            <if test="userId != null">user_id=#{userId},</if>
+            <if test="message != null">message=#{message},</if>
+        </set>
+        where order_no = #{orderNo}
+    </insert>
+<!--    insert into
         tb_order
         (order_no,consignee_phone,create_time,order_status,user_id,message)
         values
-        (#{orderNo},#{consigneePhone},#{createTime},#{orderStatus},#{userId},#{message})
-    </insert>
+        (#{orderNo},#{consigneePhone},#{createTime},#{orderStatus},#{userId},#{message})-->
 
 </mapper>

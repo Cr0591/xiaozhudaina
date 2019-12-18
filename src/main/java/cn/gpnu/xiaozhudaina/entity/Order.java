@@ -84,4 +84,18 @@ public class Order {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderNo='" + orderNo + '\'' +
+                ", consigneePhone='" + consigneePhone + '\'' +
+                ", createTime=" + createTime +
+                ", completeTime=" + completeTime +
+                ", orderStatus=" + orderStatus +
+                ", profit=" + profit +
+                ", userId=" + userId +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }
